@@ -164,9 +164,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Get origin host from request for redirect
-    const redirectUri = req.headers.origin 
-      ? `${req.headers.origin}/api/auth/twitch/callback` 
-      : `http://${req.get('host')}/api/auth/twitch/callback`;
+    const redirectUri = process.env.NODE_ENV === 'production'
+      ? `https://${req.get('host')}/api/auth/twitch/callback`
+      : (req.headers.origin 
+        ? `${req.headers.origin}/api/auth/twitch/callback` 
+        : `http://${req.get('host')}/api/auth/twitch/callback`);
     
     const scopes = [
       'user:read:email',
@@ -204,9 +206,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get redirect URI
-      const redirectUri = req.headers.origin 
-        ? `${req.headers.origin}/api/auth/twitch/callback` 
-        : `http://${req.get('host')}/api/auth/twitch/callback`;
+      const redirectUri = process.env.NODE_ENV === 'production'
+        ? `https://${req.get('host')}/api/auth/twitch/callback`
+        : (req.headers.origin 
+          ? `${req.headers.origin}/api/auth/twitch/callback` 
+          : `http://${req.get('host')}/api/auth/twitch/callback`);
       
       // Exchange code for token
       const tokenResponse = await fetch('https://id.twitch.tv/oauth2/token', {
