@@ -65,6 +65,7 @@ export const settings = pgTable("settings", {
   useStreamerPerformance: boolean("use_streamer_performance").default(true),
   useGlobalPatterns: boolean("use_global_patterns").default(false),
   notificationsEnabled: boolean("notifications_enabled").default(false),
+  discordWebhookUrl: text("discord_webhook_url"),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

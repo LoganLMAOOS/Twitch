@@ -30,6 +30,11 @@ app.use((req, res, next) => {
       }
 
       log(logLine);
+      
+      // Send to Discord webhook if authenticated
+      if (req.isAuthenticated() && req.user) {
+        sendLogToDiscord((req.user as any).id, logLine);
+      }
     }
   });
 
