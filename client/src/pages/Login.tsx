@@ -32,9 +32,16 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       window.location.href = url;
     } catch (error) {
       console.error('Failed to initiate Twitch OAuth:', error);
+      let errorMessage = "Could not connect to Twitch. Please try again.";
+      
+      // Display more specific error message if available
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
       toast({
         title: "Authentication failed",
-        description: "Could not connect to Twitch. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
       setIsLoading(false);
@@ -189,17 +196,22 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 </div>
               </div>
 
-              <Button
-                variant="default"
-                className="w-full bg-[#9147FF] hover:bg-[#772CE8] flex items-center justify-center"
-                onClick={handleTwitchLogin}
-                disabled={isLoading}
-              >
-                <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M11.64 5.93h1.43v4.28h-1.43m3.93-4.28H17v4.28h-1.43M7 2L3.43 5.57v12.86h4.28V22l3.58-3.57h2.85L20.57 12V2m-1.43 9.29l-2.85 2.85h-2.86l-2.5 2.5v-2.5H7.71V3.43h11.43Z"/>
-                </svg>
-                Connect with Twitch
-              </Button>
+              <div className="space-y-2">
+                <Button
+                  variant="default"
+                  className="w-full bg-[#9147FF] hover:bg-[#772CE8] flex items-center justify-center"
+                  onClick={handleTwitchLogin}
+                  disabled={isLoading}
+                >
+                  <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.64 5.93h1.43v4.28h-1.43m3.93-4.28H17v4.28h-1.43M7 2L3.43 5.57v12.86h4.28V22l3.58-3.57h2.85L20.57 12V2m-1.43 9.29l-2.85 2.85h-2.86l-2.5 2.5v-2.5H7.71V3.43h11.43Z"/>
+                  </svg>
+                  Connect with Twitch
+                </Button>
+                <p className="text-xs text-center text-muted-foreground">
+                  You must log in or register first before connecting with Twitch
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

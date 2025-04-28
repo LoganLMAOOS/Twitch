@@ -46,12 +46,24 @@ export interface ChannelStats {
 
 export async function initiateOAuth(): Promise<string> {
   try {
+    // Check if the user is authenticated first
+    const authStatus = await apiRequest('GET', '/api/auth/status');
+    const authData = await authStatus.json();
+    
+    if (!authData.isAuthenticated) {
+      throw new Error('You must log in to your account before connecting with Twitch');
+    }
+    
     const response = await apiRequest('GET', '/api/auth/twitch');
     const data = await response.json();
     return data.authUrl;
   } catch (error) {
     console.error('Error initiating OAuth:', error);
-    throw new Error('Failed to initiate Twitch authentication');
+    if (error instanceof Error) {
+      throw error; // Rethrow the specific error
+    } else {
+      throw new Error('Failed to initiate Twitch authentication');
+    }
   }
 }
 
