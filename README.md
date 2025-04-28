@@ -56,6 +56,18 @@ This application is configured to be easily deployed on Render.com
 
 The application will be deployed and available at your Render URL.
 
+### First-time Setup After Deployment
+
+1. Access your application at the Render.com URL
+2. Register a new user account (this is separate from your Twitch account)
+   - Example: Create a user with username "admin" and a secure password
+3. After logging in, click "Connect with Twitch" to link your Twitch account
+   - This requires you to be logged in first to your application account
+   - Then you'll be redirected to Twitch to authorize the application
+4. Once connected, you'll be able to add channels and start using all features
+
+**Important**: The two-step authentication process (local account + Twitch) provides better security and flexibility. Your local account stores your preferences and settings, while the Twitch connection enables interaction with Twitch features.
+
 ### Important Notes for Twitch Integration
 
 You'll need to add your Render.com application URL to the list of authorized redirect URIs in your Twitch Developer Console:
@@ -63,6 +75,23 @@ You'll need to add your Render.com application URL to the list of authorized red
 1. Go to [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 2. Select your application
 3. Add `https://your-render-app.onrender.com/api/auth/twitch/callback` to the "OAuth Redirect URLs"
+
+## Troubleshooting Deployment
+
+### Twitch Authentication Fails
+- Check that your TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET environment variables are set correctly
+- Verify that your redirect URI in the Twitch Developer Console matches your actual application URL
+- Make sure you're logged in to your application first before trying to connect with Twitch
+
+### Login Issues
+- If you can't log in, try registering a new account
+- Check server logs in the Render dashboard for any authentication errors
+- Try clearing your browser cookies and cache
+
+### Application Not Loading
+- Check if the Render service is running properly
+- Verify that the build completed successfully in the Render logs
+- Make sure all environment variables are configured correctly
 
 ## License
 MIT
