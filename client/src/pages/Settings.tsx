@@ -406,11 +406,9 @@ const Settings = () => {
                       placeholder="https://discord.com/api/webhooks/..."
                       value={settings?.discordWebhookUrl || ''}
                       onChange={(e) => {
-                        if (settings) {
-                          const newSettings = { ...settings, discordWebhookUrl: e.target.value };
-                          setUserSettings(newSettings);
-                          updateSettings(newSettings);
-                        }
+                        const value = e.target.value;
+                        const newSettings = settings ? { ...settings, discordWebhookUrl: value } : { discordWebhookUrl: value };
+                        updateSettings(newSettings);
                       }}
                       className="bg-background"
                     />
