@@ -397,6 +397,19 @@ const Settings = () => {
                       }
                     />
                   </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="discord-webhook">Discord Webhook URL</Label>
+                    <Input
+                      id="discord-webhook"
+                      type="url" 
+                      placeholder="https://discord.com/api/webhooks/..."
+                      value={settings?.discordWebhookUrl || ''}
+                      onChange={(e) => updateSettings({ discordWebhookUrl: e.target.value })}
+                      className="bg-background"
+                    />
+                    <p className="text-sm text-muted-foreground">Enter your Discord webhook URL to receive notifications in your Discord server</p>
+                  </div>
                 </div>
               </div>
             )}
