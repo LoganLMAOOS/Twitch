@@ -405,7 +405,10 @@ const Settings = () => {
                       type="url" 
                       placeholder="https://discord.com/api/webhooks/..."
                       value={settings?.discordWebhookUrl || ''}
-                      onChange={(e) => updateSettings({ discordWebhookUrl: e.target.value })}
+                      onChange={(e) => {
+                        const newSettings = { ...settings, discordWebhookUrl: e.target.value };
+                        updateSettings(newSettings);
+                      }}
                       className="bg-background"
                     />
                     <p className="text-sm text-muted-foreground">Enter your Discord webhook URL to receive notifications in your Discord server</p>
