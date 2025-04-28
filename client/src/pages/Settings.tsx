@@ -266,7 +266,7 @@ const Settings = () => {
                     <div>
                       {userSettings.twitchConnected ? (
                         <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/50">
-                          Connected
+                          {user?.twitchUsername} Connected
                         </Badge>
                       ) : (
                         <Button
